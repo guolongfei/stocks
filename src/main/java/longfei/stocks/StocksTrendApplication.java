@@ -4,7 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@MapperScan("longfei.stocks.test")
+@MapperScan("longfei.stocks.mappers")
 @SpringBootApplication
 public class StocksTrendApplication {
 
