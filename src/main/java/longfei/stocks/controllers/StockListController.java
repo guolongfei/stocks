@@ -17,10 +17,8 @@ public class StockListController {
 
     @GetMapping("/stocklist")
     public String stocklist(@RequestParam(name = "param", defaultValue = "") String param, Model model) {
-        System.out.println("param is:" + param);
         List<Stock> stocks = stockService.getStocks("".equals(param) ? null : param);
         model.addAttribute("stocks", stocks);
-        //stocks.stream().map(Stock::getName).forEach(System.out::println);
         return "stocklist";
     }
 }

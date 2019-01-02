@@ -3,11 +3,20 @@
 <head>
     <title>股票列表</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<tr th:each="stock:${stocks}">
-    <td th:text="${stock.name}">name</td>
-    <td th:text="${stock.code}">code</td>
-</tr>
+<h1 class="text-center">所有股票</h1>
+<div class="container">
+    <div class="row" th:each="stock:${stocks}">
+        <div class="col-md-3" style="background-color: #dedef8;
+         box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+            <a href="stocklist.html" th:href="@{/stocklist(param=${stock.code})}"><p
+                    th:text="${stock.name}+'('+${stock.code}+')'"></p></a>
+        </div>
+    </div>
+</div>
 </body>
 </html>
