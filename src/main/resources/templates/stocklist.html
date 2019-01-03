@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>股票列表</title>
@@ -9,14 +9,19 @@
 </head>
 <body>
 <h1 class="text-center">所有股票</h1>
-<div class="container">
-    <div class="row" th:each="stock:${stocks}">
-        <div class="col-md-3" style="background-color: #dedef8;
-         box-shadow: inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
-            <a href="stocklist.html" th:href="@{/stocklist(param=${stock.code})}"><p
+<div>
+    <form class="form-inline text-center" role="form" id="stockform" action="/stocklist">
+        <input type="text" class="form-control" name="param" placeholder="输入名称或代码">
+        <button type="submit" class="btn btn-default">搜索</button>
+    </form>
+</div>
+<div class="container" style="font-size: 16px;margin-top: 16px">
+    <ul class="row  list-inline" style="overflow:hidden;zoom:1;">
+        <li th:each="stock:${stocks}" class="col-md-3 col-xs-6 text-center">
+            <a href="stocklist.html" th:href="@{/static/stocks/history.html(param=${stock.code})}"><p
                     th:text="${stock.name}+'('+${stock.code}+')'"></p></a>
-        </div>
-    </div>
+        </li>
+    </ul>
 </div>
 </body>
 </html>

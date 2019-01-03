@@ -19,8 +19,14 @@
     </select>
 
     <select id="getStocksByCode" resultType="longfei.stocks.beans.Stock">
-        select *
-        from STOCK_LIST
+        SELECT *
+        FROM STOCK_LIST
         WHERE CODE = #{param}
+    </select>
+
+    <select id="getHistory" resultType="longfei.stocks.beans.StockHistory">
+        select *
+        from HISTORY_DATA
+        WHERE CODE=#{arg0} AND DATE &gt;= #{arg1} AND DATE &lt;= #{arg2}
     </select>
 </mapper>

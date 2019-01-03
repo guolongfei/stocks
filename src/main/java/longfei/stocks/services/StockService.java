@@ -1,6 +1,7 @@
 package longfei.stocks.services;
 
 import longfei.stocks.beans.Stock;
+import longfei.stocks.beans.StockHistory;
 import longfei.stocks.mappers.StockMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,15 @@ public class StockService {
         if (param == null) {
             stocks = stockMapper.getAllStocks();
         } else if (StringUtils.isNumeric(param)) {
-            System.out.println("yes:" + param);
             stocks = stockMapper.getStocksByCode(param);
         } else {
-            System.out.println("No:" + param);
             stocks = stockMapper.getStocksByName(param);
         }
         return stocks;
+    }
+
+    public List<StockHistory> getHistory(String code, String start, String end) {
+        List<StockHistory> histories = stockMapper.getHistory(code, start, end);
+        return histories;
     }
 }
