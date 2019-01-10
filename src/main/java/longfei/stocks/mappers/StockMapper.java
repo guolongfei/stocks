@@ -1,6 +1,7 @@
 package longfei.stocks.mappers;
 
 import longfei.stocks.beans.Stock;
+import longfei.stocks.beans.StockFuture;
 import longfei.stocks.beans.StockHistory;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +16,6 @@ public interface StockMapper {
     List<Stock> getStocksByCode(String code);
 
     List<StockHistory> getHistory(String code, String start, String end);
+
+    List<StockFuture> getFuture(String code);
 }

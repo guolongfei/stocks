@@ -1,6 +1,7 @@
 package longfei.stocks.services;
 
 import longfei.stocks.beans.Stock;
+import longfei.stocks.beans.StockFuture;
 import longfei.stocks.beans.StockHistory;
 import longfei.stocks.mappers.StockMapper;
 import org.apache.commons.lang3.StringUtils;
@@ -29,5 +30,10 @@ public class StockService {
     public List<StockHistory> getHistory(String code, String start, String end) {
         List<StockHistory> histories = stockMapper.getHistory(code, start, end);
         return histories;
+    }
+
+    public List<StockFuture> getFuture(String code) {
+        List<StockFuture> futures = stockMapper.getFuture(code);
+        return futures;
     }
 }

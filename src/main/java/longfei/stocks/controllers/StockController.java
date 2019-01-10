@@ -1,6 +1,7 @@
 package longfei.stocks.controllers;
 
 import longfei.stocks.beans.Stock;
+import longfei.stocks.beans.StockFuture;
 import longfei.stocks.beans.StockHistory;
 import longfei.stocks.services.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +41,12 @@ public class StockController {
         return sb.toString();
     }
 
-    @GetMapping("/history")
-    public String history(Model model) {
-        return "history";
+    @PostMapping("/historyData2")
+    @ResponseBody
+    public String historydata2(@RequestParam(name = "code") String code, @RequestParam(name = "start", defaultValue = "") String start, @RequestParam(name = "end", defaultValue = "") String end, Model model) {
+        List<StockHistory> histories = stockService.getHistory(code, start, start);
+        List<StockFuture> futures = stockService.getFuture(code);
+    }
     }
 
 }

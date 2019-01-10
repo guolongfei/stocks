@@ -29,4 +29,10 @@
         from HISTORY_DATA
         WHERE CODE=#{arg0} AND DATE &gt;= #{arg1} AND DATE &lt;= #{arg2}
     </select>
+
+    <select id="getFuture" resultType="longfei.stocks.beans.StockFuture">
+        SELECT *
+        FROM FUTURE_DATA
+        WHERE CODE = #{code}
+    </select>
 </mapper>
