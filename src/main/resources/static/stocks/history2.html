@@ -28,7 +28,7 @@
     /*g1=new Dygraph(document.getElementById("graph1"),
         "../600008.csv"
         ,{})*/
-    $.post("/stocks/historyData",
+    $.post("/stocks/historyData2",
         {
             code: "600006",
             start: "20081002",
@@ -43,7 +43,7 @@
         })
 
     function test() {
-        $.post("/stocks/historyData",
+        $.post("/stocks/historyData2",
             {
                 code: $('#code').val(),
                 start: $('#start').val(),
