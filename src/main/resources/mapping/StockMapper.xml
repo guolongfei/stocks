@@ -35,4 +35,10 @@
         FROM FUTURE_DATA
         WHERE CODE = #{code}
     </select>
+
+    <select id="getLastData" resultType="longfei.stocks.beans.StockHistory">
+        SELECT *
+        FROM HISTORY_DATA
+        WHERE CODE=#{code} ORDER BY DATE desc LIMIT 1
+    </select>
 </mapper>

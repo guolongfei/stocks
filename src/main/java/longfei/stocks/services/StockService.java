@@ -36,4 +36,8 @@ public class StockService {
         List<StockFuture> futures = stockMapper.getFuture(code);
         return futures;
     }
+
+    public StockHistory getLastData(String code) {
+        return stockMapper.getLastData(code);
+    }
 }

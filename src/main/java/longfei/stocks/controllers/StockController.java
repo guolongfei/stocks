@@ -45,23 +45,23 @@ public class StockController {
     @ResponseBody
     public String historydata2(@RequestParam(name = "code") String code, @RequestParam(name = "start", defaultValue = "") String start, @RequestParam(name = "end", defaultValue = "") String end, Model model) {
 
-        List<StockHistory> histories = stockService.getHistory(code, start, start);
+        StockHistory lastdata = stockService.getLastData(code);
         List<StockFuture> futures = stockService.getFuture(code);
         StringBuilder sb1=new StringBuilder();
         StringBuilder sb2=new StringBuilder();
         if(futures.size()>0){
-            sb1.append("{name:'前收盘',data:[["+histories.get(0).getPre_close()+",'"+histories.get(0).getDate()+"'],");
-            sb2.append("{name:'收盘',data:[["+histories.get(0).getClose()+",'"+histories.get(0).getDate()+"'],");
+            sb1.append("{\"name\":\"前收盘\",\"data\":[[" + lastdata.getPre_close() + ",\"" + lastdata.getDate() + "\"],");
+            sb2.append("{\"name\":\"收盘\",\"data\":[[" + lastdata.getClose() + ",\"" + lastdata.getDate() + "\"],");
             for(int i=0;i<futures.size();i++){
                 StockFuture future=futures.get(0);
-                sb1.append("["+future.getPre_close()+",'"+future.getDate()+"'],");
-                sb2.append("["+future.getClose()+",'"+future.getDate()+"'],");
+                sb1.append("[" + future.getPre_close() + ",\"" + future.getDate() + "\"],");
+                sb2.append("[" + future.getClose() + ",\"" + future.getDate() + "\"],");
             }
-            sb1.deleteCharAt(-1);
-            sb2.deleteCharAt(-1);
+            sb1.deleteCharAt(sb1.length() - 1);
+            sb2.deleteCharAt(sb2.length() - 1);
         }
-        System.out.println(sb1.toString());
-        System.out.println(sb2.toString());
+        sb1.append("]}");
+        sb2.append("]}");
         return "["+sb1.toString()+","+sb2.toString()+"]";
     }
 

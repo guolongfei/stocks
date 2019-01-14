@@ -18,4 +18,6 @@ public interface StockMapper {
     List<StockHistory> getHistory(String code, String start, String end);
 
     List<StockFuture> getFuture(String code);
+
+    StockHistory getLastData(String code);
 }
