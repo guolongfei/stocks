@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>历史走势</title>
+    <title>预测走势</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+    <script src="../js/util.js"></script>
 </head>
 <body>
 <!--<div class="container" style="font-size: 16px;margin-top: 16px">
@@ -16,39 +17,46 @@
         </li>
     </ul>
 </div>-->
-<div id="container" style="width: 600px;height:400px;"></div>
+<h1 id="title" class="text-center"></h1>
+<table align="center">
+    <tr>
+        <td>
+            <div id="container" style="width: 600px;height:400px;"></div>
+        </td>
+    </tr>
+</table>
+
 <script type="text/javascript">
+    var code = getQueryVariable('code');
     var chart = null;
-    $.post("/stocks/historyData2",
-        {
-            code: "600006",
-            start: "20081002",
-            end: "20101205"
-        }, function (data, status) {
-            datat = JSON.parse(data);
-            chart = Highcharts.chart('container', {
-                chart: {
-                    type: 'spline'
-                },
+    var url = "/stocks/futureData";
+
+    function update(data) {
+        datat = JSON.parse(data);
+        chart = Highcharts.chart('container', {
+            chart: {
+                type: 'spline',
+                inverted: true
+            },
+            title: {
+                text: '未来7个工作日预测'
+            },
+            xAxis: {
                 title: {
-                    text: 'Live random data'
-                },
-                xAxis: {
-                    type: 'datetime',
-                    tickPixelInterval: 150,
-                    maxZoom: 20 * 1000
-                },
-                yAxis: {
-                    minPadding: 0.2,
-                    maxPadding: 0.2,
-                    title: {
-                        text: 'Value',
-                        margin: 80
-                    }
-                },
-                series: datat
-            });
+                    enabled: true,
+                    text: '价格'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: "时间"
+                }
+            },
+            series: datat
         });
+    }
+
+    getData(code, "", "", url, update);
 
 </script>
 </body>

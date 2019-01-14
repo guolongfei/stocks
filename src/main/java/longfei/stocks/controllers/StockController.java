@@ -27,9 +27,9 @@ public class StockController {
 
     @PostMapping("/historyData")
     @ResponseBody
-    public String historydata(@RequestParam(name = "code") String code, @RequestParam(name = "start", defaultValue = "") String start, @RequestParam(name = "end", defaultValue = "") String end, Model model) {
+    public String historyData(@RequestParam(name = "code") String code, @RequestParam(name = "start", defaultValue = "") String start, @RequestParam(name = "end", defaultValue = "") String end, Model model) {
         List<StockHistory> histories = stockService.getHistory(code, start, end);
-        histories.stream().map(StockHistory::getDate).forEach(System.out::println);
+        //histories.stream().map(StockHistory::getDate).forEach(System.out::println);
         StringBuilder sb = new StringBuilder();
         if (histories.size() > 0) {
             sb.append("日期,收盘价,最高价,最低价\n");
@@ -41,21 +41,21 @@ public class StockController {
         return sb.toString();
     }
 
-    @PostMapping("/historyData2")
+    @PostMapping("/futureData")
     @ResponseBody
-    public String historydata2(@RequestParam(name = "code") String code, @RequestParam(name = "start", defaultValue = "") String start, @RequestParam(name = "end", defaultValue = "") String end, Model model) {
+    public String futureData(@RequestParam(name = "code") String code, @RequestParam(name = "start", defaultValue = "") String start, @RequestParam(name = "end", defaultValue = "") String end, Model model) {
 
         StockHistory lastdata = stockService.getLastData(code);
         List<StockFuture> futures = stockService.getFuture(code);
         StringBuilder sb1=new StringBuilder();
         StringBuilder sb2=new StringBuilder();
         if(futures.size()>0){
-            sb1.append("{\"name\":\"前收盘\",\"data\":[[" + lastdata.getPre_close() + ",\"" + lastdata.getDate() + "\"],");
-            sb2.append("{\"name\":\"收盘\",\"data\":[[" + lastdata.getClose() + ",\"" + lastdata.getDate() + "\"],");
+            sb1.append("{\"name\":\"前收盘\",\"data\":[[" + lastdata.getPre_close() + "," + 0 + "],");
+            sb2.append("{\"name\":\"收盘\",\"data\":[[" + lastdata.getClose() + "," + 0 + "],");
             for(int i=0;i<futures.size();i++){
                 StockFuture future=futures.get(0);
-                sb1.append("[" + future.getPre_close() + ",\"" + future.getDate() + "\"],");
-                sb2.append("[" + future.getClose() + ",\"" + future.getDate() + "\"],");
+                sb1.append("[" + future.getPre_close() + "," + String.valueOf(i + 1) + "],");
+                sb2.append("[" + future.getClose() + "," + String.valueOf(i + 1) + "],");
             }
             sb1.deleteCharAt(sb1.length() - 1);
             sb2.deleteCharAt(sb2.length() - 1);
